@@ -1,4 +1,16 @@
-#ifndef PUSH_SWAP
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hal-tawa <hal-tawa@learner.42.tech>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/15 19:59:42 by hal-tawa          #+#    #+#             */
+/*   Updated: 2026/02/15 19:59:42 by hal-tawa         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
 # include <stdlib.h>
@@ -13,12 +25,11 @@ typedef struct s_node
 	struct s_node	*next;
 
 }	t_node;
-
 typedef struct s_stack
 {
-    t_node  *top;
-    int     size;
-}   t_stack;
+	t_node	*top;
+	int		size;
+}	t_stack;
 
 typedef enum e_strategy
 {
@@ -30,10 +41,17 @@ typedef enum e_strategy
 
 typedef enum e_op
 {
-	OP_SA, OP_SB, OP_SS,
-	OP_PA, OP_PB,
-	OP_RA, OP_RB, OP_RR,
-	OP_RRA, OP_RRB, OP_RRR
+	OP_SA,
+	OP_SB,
+	OP_SS,
+	OP_PA,
+	OP_PB,
+	OP_RA,
+	OP_RB,
+	OP_RR,
+	OP_RRA,
+	OP_RRB,
+	OP_RRR
 }	t_op;
 
 typedef struct s_ps
@@ -46,7 +64,7 @@ typedef struct s_ps
 	double		disorder;
 
 	long		op_total;
-	long		op_count[11]; 
+	long		op_count[11];
 }	t_ps;
 
 int		parse_flags(t_ps *ps, int argc, char **argv, int *start_i);

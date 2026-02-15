@@ -33,4 +33,3 @@ int	find_min_pos(t_node *stack)
 	}
 	return (pos);
 }
-
