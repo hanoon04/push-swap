@@ -4,6 +4,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <limits.h>
+# include <stddef.h>
 
 typedef struct s_node
 {
