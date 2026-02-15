@@ -9,7 +9,6 @@
 /*   Updated: 2025/12/08 14:51:24 by hal-tawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {

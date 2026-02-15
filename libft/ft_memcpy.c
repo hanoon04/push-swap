@@ -9,7 +9,6 @@
 /*   Updated: 2025/12/08 14:53:20 by hal-tawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "libft.h"
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {

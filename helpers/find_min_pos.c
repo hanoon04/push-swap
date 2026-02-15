@@ -1,27 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   helper.c                                           :+:      :+:    :+:   */
+/*   find_min_pos.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kabuhamm <kabuhamm@learner.42.tech>        +#+  +:+       +#+        */
+/*   By: hal-tawa <hal-tawa@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/11 11:55:42 by kabuhamm          #+#    #+#             */
-/*   Updated: 2026/02/14 13:09:21 by kabuhamm         ###   ########.fr       */
+/*   Created: 2026/02/15 16:26:45 by hal-tawa          #+#    #+#             */
+/*   Updated: 2026/02/15 16:26:45 by hal-tawa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-int	is_sorted(t_node *stack)
-{
-	if (!stack)
-		return (0);
-	while (stack -> next)
-	{
-		if (stack -> value < stack -> next -> value)
-			return (0);
-		stack = stack -> next;
-	}
-	return (1);
-}
 
 int	find_min_pos(t_node *stack)
 {
@@ -46,3 +33,4 @@ int	find_min_pos(t_node *stack)
 	}
 	return (pos);
 }
+

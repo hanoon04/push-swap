@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                :+:      :+:    :+:   */
+/*   helper.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hal-tawa <hal-tawa@learner.42.tech>        +#+  +:+       +#+        */
+/*   By: kabuhamm <kabuhamm@learner.42.tech>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/08 14:51:10 by hal-tawa          #+#    #+#             */
-/*   Updated: 2025/12/08 14:51:10 by hal-tawa         ###   ########.fr       */
+/*   Created: 2026/02/11 11:55:42 by kabuhamm          #+#    #+#             */
+/*   Updated: 2026/02/14 13:09:21 by kabuhamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_bzero(void *s, size_t n)
+int	is_sorted(t_node *stack)
 {
-	size_t	i;
-
-	i = 0;
-	while (i < n)
+	if (!stack)
+		return (0);
+	while (stack -> next)
 	{
-		((unsigned char *)s)[i] = 0;
-		i++;
+		if (stack -> value < stack -> next -> value)
+			return (0);
+		stack = stack -> next;
 	}
+	return (1);
 }
