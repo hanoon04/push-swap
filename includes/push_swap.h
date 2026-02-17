@@ -24,12 +24,12 @@ typedef struct s_node
 	int				index;
 	struct s_node	*next;
 
-}	t_node;
+}	s_node;
 typedef struct s_stack
 {
 	t_node	*top;
 	int		size;
-}	t_stack;
+}	s_stack;
 
 typedef enum e_strategy
 {
