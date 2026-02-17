@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-t_node	*node_new(int value)
+t_node	*new_node(int value)
 {
 	t_node	*node;
 
@@ -23,7 +23,7 @@ t_node	*node_new(int value)
 	return (node);
 }
 
-t_node	*node_last(t_node *stack)
+t_node	*last_node(t_node *stack)
 {
 	if (!stack)
 		return (NULL);
@@ -32,7 +32,7 @@ t_node	*node_last(t_node *stack)
 	return (stack);
 }
 
-int	node_size(t_node *stack)
+int	lst_size(t_node *stack)
 {
 	int	i;
 
@@ -45,7 +45,7 @@ int	node_size(t_node *stack)
 	return (i);
 }
 
-void	node_add_back(t_node **stack, t_node *new_node)
+void	lst_add_back(t_node **stack, t_node *new_node)
 {
 	t_node	last;
 
@@ -60,7 +60,7 @@ void	node_add_back(t_node **stack, t_node *new_node)
 	last -> next = new_node;
 }
 
-void	node_clear(t_node **stack)
+void	lst_clear(t_node **stack)
 {
 	t_node	*tmp;
 
