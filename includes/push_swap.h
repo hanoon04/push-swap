@@ -71,11 +71,11 @@ int		parse_flags(t_ps *ps, int argc, char **argv, int *start_i);
 void	parse_input(t_ps *ps, int argc, char **argv, int start_i);
 void	error_exit(t_ps *ps);
 
-t_node	*node_new(int value);
-t_node	*node_last(t_node *stack);
-int		node_size(t_node *stack);
-void	node_add_back(t_node **stack, t_node *new_node);
-void	node_clear(t_node **stack);
+t_node	*new_node(int value);
+t_node	*last_node(t_node *stack);
+int		lst_size(t_node *stack);
+void	lst_add_back(t_node **stack, t_node *new_node);
+void	lst_clear(t_node **stack);
 
 void	sa(t_node **a);
 void	sb(t_node **b);
