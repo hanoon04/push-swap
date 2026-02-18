@@ -27,7 +27,7 @@ typedef struct s_node
 }	s_node;
 typedef struct s_stack
 {
-	t_node	*top;
+	s_node	*top;
 	int		size;
 }	s_stack;
 
@@ -56,8 +56,8 @@ typedef enum e_op
 
 typedef struct s_ps
 {
-	t_node		*a;
-	t_node		*b;
+	s_node		*a;
+	s_node		*b;
 
 	t_strategy	strategy;
 	int			flag_bench;
@@ -67,55 +67,32 @@ typedef struct s_ps
 	long		op_count[11];
 }	t_ps;
 
-int		parse_flags(t_ps *ps, int argc, char **argv, int *start_i);
-void	parse_input(t_ps *ps, int argc, char **argv, int start_i);
+//init
+int	parse_flags(t_ps *ps, int argc, char **arg, int *start_i);
+void	parse_input(t_ps *ps, int argc, char **argv, int start_i)
 void	error_exit(t_ps *ps);
 
-t_node	*new_node(int value);
-t_node	*last_node(t_node *stack);
-int		lst_size(t_node *stack);
-void	lst_add_back(t_node **stack, t_node *new_node);
-void	lst_clear(t_node **stack);
+s_node	*new_node(int value);
+s_node	*last_node(s_node *stack);
+int		lst_size(s_node *stack);
+void	lst_add_back(s_node **stack, s_node *new_node);
+void	lst_clear(s_node **stack);
 
-void	sa(t_node **a);
-void	sb(t_node **b);
-void	ss(t_node **a, t_node **b);
+//list
+s_node	*new_node(int value);
+s_node	*last_node(s_node *stack);
+int		lst_size(s_node *stack);
+void	lst_add_back(s_node **stack, s_node *new_node);
+void	lst_clear(s_node **stack);
 
-void	pa(t_node **a, t_node **b);
-void	pb(t_node **a, t_node **b);
-
-void	ra(t_node **a);
-void	rb(t_node **b);
-void	rr(t_node **a, t_node **b);
-
-void	rra(t_node **a);
-void	rrb(t_node **b);
-void	rrr(t_node **a, t_node **b);
-
-void	do_op(t_ps *ps, t_op op);
-
+//helpers
 int		is_sorted(t_node *stack);
 int		find_min_pos(t_node *stack);
-int		find_max_pos(t_node *stack);
-void	rotate_a_to_top(t_ps *ps, int pos);
-void	rotate_b_to_top(t_ps *ps, int pos);
-void	sort_2(t_ps *ps);
-void	sort_3(t_ps *ps);
 
-void	compress_ranks(t_node *a);
-double	compute_disorder(t_node *a);
-
-void	simple_sort(t_ps *ps);
-void	medium_sort(t_ps *ps);
-void	complex_sort(t_ps *ps);
-void	adaptive_sort(t_ps *ps);
-
-void	print_bench(t_ps *ps);
-
+//libft
 char	**ft_split(char const *s, char c);
 int		ft_isdigit(int c);
 size_t	ft_strlen(const char *s);
-long	ft_atol(const char *str);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putnbr_fd(long n, int fd);
