@@ -24,12 +24,12 @@ typedef struct s_node
 	int				index;
 	struct s_node	*next;
 
-}	s_node;
+}	t_node;
 typedef struct s_stack
 {
-	s_node	*top;
+	t_node	*top;
 	int		size;
-}	s_stack;
+}	t_stack;
 
 typedef enum e_strategy
 {
@@ -56,8 +56,8 @@ typedef enum e_op
 
 typedef struct s_ps
 {
-	s_node		*a;
-	s_node		*b;
+	t_node		*a;
+	t_node		*b;
 
 	t_strategy	strategy;
 	int			flag_bench;
@@ -68,22 +68,22 @@ typedef struct s_ps
 }	t_ps;
 
 //init
-int	parse_flags(t_ps *ps, int argc, char **arg, int *start_i);
-void	parse_input(t_ps *ps, int argc, char **argv, int start_i)
+int		parse_flags(t_ps *ps, int argc, char **arg, int *start_i);
+void	parse_input(t_ps *ps, int argc, char **argv, int start_i);
 void	error_exit(t_ps *ps);
 
-s_node	*new_node(int value);
-s_node	*last_node(s_node *stack);
-int		lst_size(s_node *stack);
-void	lst_add_back(s_node **stack, s_node *new_node);
-void	lst_clear(s_node **stack);
+t_node	*new_node(int value);
+t_node	*last_node(t_node *stack);
+int		lst_size(t_node *stack);
+void	lst_add_back(t_node **stack, t_node *new_node);
+void	lst_clear(t_node **stack);
 
 //list
-s_node	*new_node(int value);
-s_node	*last_node(s_node *stack);
-int		lst_size(s_node *stack);
-void	lst_add_back(s_node **stack, s_node *new_node);
-void	lst_clear(s_node **stack);
+t_node	*new_node(int value);
+t_node	*last_node(t_node *stack);
+int		lst_size(t_node *stack);
+void	lst_add_back(t_node **stack, t_node *new_node);
+void	lst_clear(t_node **stack);
 
 //helpers
 int		is_sorted(t_node *stack);
