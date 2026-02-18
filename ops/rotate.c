@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "push_swap.h"
+
 void	rotate(s_stack *s)
 {
 	s_node	*last;
@@ -37,5 +39,5 @@ void	rr(s_stack *a, s_stack *b)
 {
 	rotate(a);
 	rotate(b);
-	write(1,"rr\n", 3);
+	write(1, "rr\n", 3);
 }
