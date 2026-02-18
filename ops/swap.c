@@ -12,10 +12,10 @@
 
 #include "push_swap.h"
 
-void	swap(s_stack *a)
+void	swap(t_stack *a)
 {
-	s_node	*first;
-	s_node	*second;
+	t_node	*first;
+	t_node	*second;
 
 	if (!a || a -> size < 2)
 		return ;
@@ -26,7 +26,7 @@ void	swap(s_stack *a)
 	a -> top = second;
 }
 
-void	swap_printer(s_stack *s, char c)
+void	swap_printer(t_stack *s, char c)
 {
 	swap(s);
 	if (c == 'a')
@@ -35,7 +35,7 @@ void	swap_printer(s_stack *s, char c)
 		write(1, "sb\n", 3);
 }
 
-void	ss(s_stack *a, s_stack *b)
+void	ss(t_stack *a, t_stack *b)
 {
 	swap(a);
 	swap(b);

@@ -12,10 +12,10 @@
 
 #include "push_swap.h"
 
-void	rotate(s_stack *s)
+void	rotate(t_stack *s)
 {
-	s_node	*last;
-	s_node	*first;
+	t_node	*last;
+	t_node	*first;
 
 	if (!s || s -> size < 2)
 		return ;
@@ -26,7 +26,7 @@ void	rotate(s_stack *s)
 	first -> next = NULL;
 }
 
-void	rotate_printer(s_stack *s, char c)
+void	rotate_printer(t_stack *s, char c)
 {
 	rotate(s);
 	if (c == 'a')
@@ -35,7 +35,7 @@ void	rotate_printer(s_stack *s, char c)
 		write(1, "rb\n", 3);
 }
 
-void	rr(s_stack *a, s_stack *b)
+void	rr(t_stack *a, t_stack *b)
 {
 	rotate(a);
 	rotate(b);

@@ -10,9 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-void	push(s_stack *src, s_stack *dst)
+#include "push_swap.h"
+
+void	push(t_stack *src, t_stack *dst)
 {
-	s_node	*src_first;
+	t_node	*src_first;
 
 	if (!src || !dst || src -> size == 0)
 		return ;
@@ -24,13 +26,13 @@ void	push(s_stack *src, s_stack *dst)
 	src -> size--;
 }
 
-void	pb(s_stack *a, s_stack *b)
+void	pb(t_stack *a, t_stack *b)
 {
 	push(a, b);
 	write(1, "pb\n", 3);
 }
 
-void	pa(s_stack *a, s_stack *b)
+void	pa(t_stack *a, t_stack *b)
 {
 	push(b, a);
 	write(1, "pa\n", 3);
