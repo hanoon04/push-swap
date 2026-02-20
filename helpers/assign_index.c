@@ -13,7 +13,7 @@ static void	sort_int_array(int *arr, int n)
 {
 	int	i;
 	int	j;
-k
+
 	i = 0;
 	while (i < n - 1)
 	{
