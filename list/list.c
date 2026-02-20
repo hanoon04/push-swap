@@ -10,16 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/push_swap.h"
+
 t_node	*node_new(int value)
 {
 	t_node	*node;
 
-	node = malloc(sizeof(t_node));
+	node = (t_node *)malloc(sizeof(t_node));
 	if (!node)
 		return (NULL);
-	node -> value = value;
-	node -> next = NULL;
-	node -> index = 0;
+	node->value = value;
+	node->index = -1;
+	node->next = NULL;
 	return (node);
 }
 
@@ -27,8 +29,8 @@ t_node	*node_last(t_node *stack)
 {
 	if (!stack)
 		return (NULL);
-	while (stack -> next)
-		stack = stack -> next;
+	while (stack->next)
+		stack = stack->next;
 	return (stack);
 }
 
@@ -40,14 +42,14 @@ int	node_size(t_node *stack)
 	while (stack)
 	{
 		i++;
-		stack = stack -> next;
+		stack = stack->next;
 	}
 	return (i);
 }
 
 void	node_add_back(t_node **stack, t_node *new_node)
 {
-	t_node	last;
+	t_node	*last;
 
 	if (!stack || !new_node)
 		return ;
@@ -57,7 +59,7 @@ void	node_add_back(t_node **stack, t_node *new_node)
 		return ;
 	}
 	last = node_last(*stack);
-	last -> next = new_node;
+	last->next = new_node;
 }
 
 void	node_clear(t_node **stack)
@@ -68,9 +70,8 @@ void	node_clear(t_node **stack)
 		return ;
 	while (*stack)
 	{
-		tmp = (*stack)-> next;
+		tmp = (*stack)->next;
 		free(*stack);
 		*stack = tmp;
 	}
-	*stack = NULL;
 }

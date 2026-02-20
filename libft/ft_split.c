@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../includes/push_swap.h"
+
 static int	words(char const *s, char c)
 {
 	int	i;
