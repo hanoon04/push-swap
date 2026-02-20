@@ -1,4 +1,4 @@
-#ifndef PUSH_SWAP
+#ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
 # include <stdlib.h>
@@ -8,7 +8,7 @@
 
 typedef struct s_node
 {
-	int				*value;
+	int				value;
 	int				index;
 	struct s_node	*next;
 
