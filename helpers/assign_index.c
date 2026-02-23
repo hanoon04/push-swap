@@ -33,7 +33,7 @@ static int	*stack_to_array(t_node *a, int n, t_ps *ps)
 	int		*arr;
 	int		i;
 
-	arr = (int *)malloc(sizeof(int) * n);
+	arr = malloc(sizeof(int) * n);
 	if (!arr)
 		error_exit(ps);
 	i = 0;
