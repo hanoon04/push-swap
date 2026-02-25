@@ -23,22 +23,22 @@ void	sort3(t_stack **a)
 	first = (*a)-> index;
 	second = (*a)-> next -> index;
 	third = (*a)-> next -> next -> index;
-	if (first > second && first < third)
-		op_dispatch("sa");
-	else if (first > second && first > third && second < third)
-		op_dispatch("ra");
-	else if (first < second && first > third)
-		op_dispatch("rra");
-	else if (first < second && first < third && third < second)
+	if (first == 1 && second == 3 && third == 2)
 	{
-		op_dispatch("rra");
-		op_dispatch("sa");
+		op_dispatch("rra", a, b);
+		op_dispatch("sa", a, b);
 	}
-	else if (first > second && first > third && third < second)
+	else if (first == 3 && second == 2 && third == 1)
 	{
-		op_dispatch("ra");
-		op_dispatch("sa");
+		op_dispatch("sa", a, b);
+		op_dispatch("ra", a, b);
 	}
+	else if (first == 2 && second == 1 && third == 3)
+		op_dispatch("sa", a, b);
+	else if (first == 2 && second == 3 && third == 1)
+		op_dispatch("rra", a, b);
+	else if (first == 3 && second == 1 && third == 2)
+		op_dispatch("ra", a, b);
 }
 
 void	sort2(t_stack **a)
