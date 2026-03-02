@@ -14,27 +14,24 @@
 
 void	insertion_sort(t_stack *a, t_stack *b)
 {
-	t_node	*a_top;
-	t_node	*b_top;
+	t_node	*current;
+	int		value;
+	int		rb_count;
 
-	a_top = a -> top;
-	while (a_top)
+	while (a -> op)
 	{
-		pb(a, b);
-		b_top = b -> top;
-		while (a_top -> value < b_top -> value)
+		current = a -> top;
+		value = current -> value;
+		rb_count = 0;
+		if (b -> top && b -> top -> value > value)
 		{
-			rb(b);
-			b_top = b_top -> next;
+			op_dispatch("rb", a, b);
+			rb_count++;
 		}
-		a_top = a_top -> next;
+		op_dispatch("pb", a, b);
+		while (rb_count--)
+			op_dispatch("rrb", a, b);
 	}
-
-	b_top = b -> top;
-	while (b_top)
-	{
-		pa(a, b);
-		b_top = b_top -> next;
-	}
+	while (b -> top)
+		op_dispatch("pa", a, b);
 }
-
