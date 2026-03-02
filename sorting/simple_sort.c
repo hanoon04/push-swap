@@ -18,12 +18,12 @@ void	insertion_sort(t_stack *a, t_stack *b)
 	int		value;
 	int		rb_count;
 
-	while (a -> op)
+	while (a -> top)
 	{
 		current = a -> top;
 		value = current -> value;
 		rb_count = 0;
-		if (b -> top && b -> top -> value > value)
+		while (b -> top && b -> top -> value > value && rb_count < b -> size)
 		{
 			op_dispatch("rb", a, b);
 			rb_count++;
