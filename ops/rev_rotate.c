@@ -12,11 +12,11 @@
 
 #include "push_swap.h"
 
-void	rev_rotate(s_stack *s)
+void	rev_rotate(t_stack *s)
 {
-	s_node	*last;
-	s_node	*first;
-	s_node	*prev_last;
+	t_node	*last;
+	t_node	*first;
+	t_node	*prev_last;
 
 	if (!s || s -> size < 2)
 		return ;

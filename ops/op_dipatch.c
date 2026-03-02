@@ -15,9 +15,9 @@
 void	op_dispatch(char *op, t_stack *a, t_stack *b)
 {
 	if (ft_strncmp(op, "pa", 3) == 0)
-		pa(a, b);
+		pa(b, a);
 	else if (ft_strncmp(op, "pb", 3) == 0)
-		pb(b, a);
+		pb(a, b);
 	else if (ft_strncmp(op, "sa", 3) == 0)
 		swap_printer(a, 'a');
 	else if (ft_strncmp(op, "sb", 3) == 0)
