@@ -105,4 +105,10 @@ void	*ft_calloc(size_t count, size_t size);
 void	ft_bzero(void *s, size_t n);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 
+void	do_op(t_ps *ps, t_op op);
+void	print_bench(t_ps *ps);
+int		find_max_pos_index(t_node *stack);
+void	rotate_b_to_top(t_ps *ps, int pos);
+void	medium_sort(t_ps *ps);
+
 #endif
