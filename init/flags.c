@@ -37,11 +37,11 @@ int	parse_flags(t_ps *ps, int argc, char **argv, int *start_i)
 		else if (streq(argv[i], "--adaptive"))
 			ps->strategy = STRAT_ADAPTIVE;
 		else
-			return (0);
+			error_exit(ps);
 		i++;
 	}
 	*start_i = i;
 	if (*start_i >= argc)
-		return (0);
+		error_exit(ps);
 	return (1);
 }

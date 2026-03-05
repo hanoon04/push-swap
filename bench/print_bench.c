@@ -1,42 +1,37 @@
 #include "../includes/push_swap.h"
 
-static void	putstr(const char *s)
+static void	putstr_fd(const char *s, int fd)
 {
-	while (*s)
-		write(1, s++, 1);
+	while (*s) write(fd, s++, 1);
 }
 
-static void	print_op(t_op op)
+static void	putnbr_fd(long n, int fd)
 {
-	if (op == OP_SA) putstr("sa\n");
-	else if (op == OP_SB) putstr("sb\n");
-	else if (op == OP_SS) putstr("ss\n");
-	else if (op == OP_PA) putstr("pa\n");
-	else if (op == OP_PB) putstr("pb\n");
-	else if (op == OP_RA) putstr("ra\n");
-	else if (op == OP_RB) putstr("rb\n");
-	else if (op == OP_RR) putstr("rr\n");
-	else if (op == OP_RRA) putstr("rra\n");
-	else if (op == OP_RRB) putstr("rrb\n");
-	else if (op == OP_RRR) putstr("rrr\n");
+	char c;
+	if (n < 0) { write(fd, "-", 1); n = -n; }
+	if (n >= 10) putnbr_fd(n / 10, fd);
+	c = '0' + (n % 10);
+	write(fd, &c, 1);
 }
 
-void	do_op(t_ps *ps, t_op op)
+void	print_bench(t_ps *ps)
 {
-	if (!ps)
-		return ;
-	if (op == OP_SA) sa(&ps->a);
-	else if (op == OP_SB) sb(&ps->b);
-	else if (op == OP_SS) ss(&ps->a, &ps->b);
-	else if (op == OP_PA) pa(&ps->a, &ps->b);
-	else if (op == OP_PB) pb(&ps->a, &ps->b);
-	else if (op == OP_RA) ra(&ps->a);
-	else if (op == OP_RB) rb(&ps->b);
-	else if (op == OP_RR) rr(&ps->a, &ps->b);
-	else if (op == OP_RRA) rra(&ps->a);
-	else if (op == OP_RRB) rrb(&ps->b);
-	else if (op == OP_RRR) rrr(&ps->a, &ps->b);
-	print_op(op);
-	ps->op_total++;
-	ps->op_count[op]++;
+	int	i;
+
+	if (!ps) return;
+
+	putstr_fd("Total ops: ", 2);
+	putnbr_fd(ps->op_total, 2);
+	putstr_fd("\n", 2);
+
+	i = 0;
+	while (i < 11)
+	{
+		putstr_fd("op[", 2);
+		putnbr_fd(i, 2);
+		putstr_fd("]: ", 2);
+		putnbr_fd(ps->op_count[i], 2);
+		putstr_fd("\n", 2);
+		i++;
+	}
 }

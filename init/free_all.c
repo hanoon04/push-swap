@@ -4,6 +4,16 @@ void	free_all(t_ps *ps)
 {
 	if (!ps)
 		return ;
-	node_clear(&ps->a);
-	node_clear(&ps->b);
+	if (ps->a)
+	{
+		node_clear(&ps->a->top);
+		free(ps->a);
+		ps->a = NULL;
+	}
+	if (ps->b)
+	{
+		node_clear(&ps->b->top);
+		free(ps->b);
+		ps->b = NULL;
+	}
 }

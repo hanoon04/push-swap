@@ -18,7 +18,7 @@ static void	push_chunks(t_ps *ps)
 	int	limit;
 	int	pushed;
 
-	n = node_size(ps->a);
+	n =  ps->a->size;
 	chunk_count = int_sqrt(n);
 	if (chunk_count < 1)
 		chunk_count = 1;
@@ -29,11 +29,11 @@ static void	push_chunks(t_ps *ps)
 	pushed = 0;
 	while (pushed < n)
 	{
-		if (ps->a->index <= limit)
+		if (ps->a->top->index <= limit)
 		{
 			do_op(ps, OP_PB);
 			pushed++;
-			if (ps->b && ps->b->index < limit - (chunk_size / 2))
+			if (ps->b->top && ps->b->top->index < limit - (chunk_size / 2))
 				do_op(ps, OP_RB);
 			if (pushed > limit)
 				limit += chunk_size;
@@ -49,7 +49,7 @@ static void	rebuild_a(t_ps *ps)
 {
 	int	pos;
 
-	while (ps->b)
+	while (ps->b->size > 0)
 	{
 		pos = find_max_pos_index(ps->b);
 		rotate_b_to_top(ps, pos);
@@ -59,7 +59,7 @@ static void	rebuild_a(t_ps *ps)
 
 void	medium_sort(t_ps *ps)
 {
-	if (!ps || !ps->a)
+	if (!ps || !ps->a || ps->a->size < 2)
 		return ;
 	push_chunks(ps);
 	rebuild_a(ps);

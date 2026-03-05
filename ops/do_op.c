@@ -1,42 +1,43 @@
-#include "../includes/push_swap.h"
+#include "push_swap.h"
 
-static void	putstr(const char *s)
-{
-	while (*s)
-		write(1, s++, 1);
-}
-
-static void	print_op(t_op op)
-{
-	if (op == OP_SA) putstr("sa\n");
-	else if (op == OP_SB) putstr("sb\n");
-	else if (op == OP_SS) putstr("ss\n");
-	else if (op == OP_PA) putstr("pa\n");
-	else if (op == OP_PB) putstr("pb\n");
-	else if (op == OP_RA) putstr("ra\n");
-	else if (op == OP_RB) putstr("rb\n");
-	else if (op == OP_RR) putstr("rr\n");
-	else if (op == OP_RRA) putstr("rra\n");
-	else if (op == OP_RRB) putstr("rrb\n");
-	else if (op == OP_RRR) putstr("rrr\n");
-}
+static void	pb_silent(t_stack *a, t_stack *b) { push(a, b); }
+static void	pa_silent(t_stack *a, t_stack *b) { push(b, a); }
 
 void	do_op(t_ps *ps, t_op op)
 {
-	if (!ps)
+	if (!ps || !ps->a || !ps->b)
 		return ;
-	if (op == OP_SA) sa(&ps->a);
-	else if (op == OP_SB) sb(&ps->b);
-	else if (op == OP_SS) ss(&ps->a, &ps->b);
-	else if (op == OP_PA) pa(&ps->a, &ps->b);
-	else if (op == OP_PB) pb(&ps->a, &ps->b);
-	else if (op == OP_RA) ra(&ps->a);
-	else if (op == OP_RB) rb(&ps->b);
-	else if (op == OP_RR) rr(&ps->a, &ps->b);
-	else if (op == OP_RRA) rra(&ps->a);
-	else if (op == OP_RRB) rrb(&ps->b);
-	else if (op == OP_RRR) rrr(&ps->a, &ps->b);
-	print_op(op);
+
+	if (ps->flag_bench)
+	{
+		if (op == OP_SA) swap(ps->a);
+		else if (op == OP_SB) swap(ps->b);
+		else if (op == OP_SS) { swap(ps->a); swap(ps->b); }
+		else if (op == OP_PA) pa_silent(ps->a, ps->b);
+		else if (op == OP_PB) pb_silent(ps->a, ps->b);
+		else if (op == OP_RA) rotate(ps->a);
+		else if (op == OP_RB) rotate(ps->b);
+		else if (op == OP_RR) { rotate(ps->a); rotate(ps->b); }
+		else if (op == OP_RRA) rev_rotate(ps->a);
+		else if (op == OP_RRB) rev_rotate(ps->b);
+		else if (op == OP_RRR) { rev_rotate(ps->a); rev_rotate(ps->b); }
+	}
+	else
+	{
+		if (op == OP_SA) swap_printer(ps->a, 'a');
+		else if (op == OP_SB) swap_printer(ps->b, 'b');
+		else if (op == OP_SS) ss(ps->a, ps->b);
+		else if (op == OP_PA) pa(ps->a, ps->b);
+		else if (op == OP_PB) pb(ps->a, ps->b);
+		else if (op == OP_RA) rotate_printer(ps->a, 'a');
+		else if (op == OP_RB) rotate_printer(ps->b, 'b');
+		else if (op == OP_RR) rr(ps->a, ps->b);
+		else if (op == OP_RRA) rev_rotate_printer(ps->a, 'a');
+		else if (op == OP_RRB) rev_rotate_printer(ps->b, 'b');
+		else if (op == OP_RRR) rrr(ps->a, ps->b);
+	}
+
 	ps->op_total++;
-	ps->op_count[op]++;
+	if ((int)op >= 0 && (int)op < 11)
+		ps->op_count[op]++;
 }

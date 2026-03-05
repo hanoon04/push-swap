@@ -12,15 +12,17 @@
 
 #include "../includes/push_swap.h"
 
-int	is_sorted(t_node *stack)
+int	is_sorted(t_stack *stack)
 {
-	if (!stack || !stack->next)
+	t_node	*cur;
+	if (!stack || !stack->top || !stack->top->next)
 		return (1);
-	while (stack -> next)
+	cur = stack->top;
+	while (cur->next)
 	{
-		if (stack -> value > stack -> next -> value)
+		if (cur->value > cur->next->value)
 			return (0);
-		stack = stack -> next;
+		cur = cur->next;
 	}
 	return (1);
 }

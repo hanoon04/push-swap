@@ -64,6 +64,7 @@ void	assign_index(t_ps *ps)
 	int		n;
 	int		*arr;
 	t_node	*cur;
+	int	idx;
 
 	if (!ps || !ps->a)
 		return ;

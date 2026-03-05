@@ -77,13 +77,14 @@ static void	handle_token(t_ps *ps, const char *tok)
 	if (nb < INT_MIN || nb > INT_MAX)
 		error_exit(ps);
 
-	if (stack_contains(ps->a, (int)nb))
+	if (stack_contains(ps->a->top, (int)nb))
 		error_exit(ps);
 
 	n = node_new((int)nb);
 	if (!n)
 		error_exit(ps);
-	node_add_back(&ps->a, n);
+	node_add_back(&ps->a->top, n);
+	ps->a->size++;
 }
 
 void	parse_input(t_ps *ps, int argc, char **argv, int start_i)

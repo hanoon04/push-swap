@@ -4,8 +4,16 @@ void	init_stack(t_ps *ps)
 {
 	int	i;
 
-	ps->a = NULL;
-	ps->b = NULL;
+	if (!ps)
+		return;
+	ps->a = malloc(sizeof(t_stack));
+	ps->b = malloc(sizeof(t_stack));
+	if (!ps->a || !ps->b)
+		error_exit(ps);
+	ps->a->top = NULL;
+	ps->a->size = 0;
+	ps->b->top = NULL;
+	ps->b->size = 0;
 	ps->strategy = STRAT_ADAPTIVE;
 	ps->flag_bench = 0;
 	ps->disorder = 0.0;

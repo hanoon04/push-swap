@@ -1,24 +1,26 @@
 #include "../includes/push_swap.h"
 
-int	find_max_pos_index(t_node *stack)
+int	find_max_pos_index(t_stack *stack)
 {
+	t_node	*cur;
 	int	max;
 	int	best;
 	int	i;
 
-	if (!stack)
+	if (!stack || !stack->top)
 		return (-1);
-	max = stack->index;
+	cur = stack->top;
+	max = cur->index;
 	best = 0;
 	i = 0;
-	while (stack)
+	while (cur)
 	{
-		if (stack->index > max)
+		if (cur->index > max)
 		{
-			max = stack->index;
+			max = cur->index;
 			best = i;
 		}
-		stack = stack->next;
+		cur = cur->next;
 		i++;
 	}
 	return (best);
