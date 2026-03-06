@@ -1,5 +1,14 @@
 #include "../includes/push_swap.h"
 
+typedef struct s_chunk
+{
+	int	n;
+	int	chunk_count;
+	int	chunk_size;
+	int	limit;
+	int	pushed;
+}	t_chunk;
+
 static int	int_sqrt(int n)
 {
 	int	x;
@@ -10,35 +19,36 @@ static int	int_sqrt(int n)
 	return (x);
 }
 
-static void	push_chunks(t_ps *ps)
+static t_chunk	init_chunks(t_ps *ps)
 {
-	int	n;
-	int	chunk_count;
-	int	chunk_size;
-	int	limit;
-	int	pushed;
+	t_chunk	c;
 
-	n =  ps->a->size;
-	chunk_count = int_sqrt(n);
-	if (chunk_count < 1)
-		chunk_count = 1;
-	chunk_size = n / chunk_count;
-	if (chunk_size < 1)
-		chunk_size = 1;
-	limit = chunk_size - 1;
-	pushed = 0;
-	while (pushed < n)
+	c.n = ps->a->size;
+	c.chunk_count = int_sqrt(c.n);
+	if (c.chunk_count < 1)
+		c.chunk_count = 1;
+	c.chunk_size = c.n / c.chunk_count;
+	if (c.chunk_size < 1)
+		c.chunk_size = 1;
+	c.limit = c.chunk_size - 1;
+	c.pushed = 0;
+	return (c);
+}
+
+static void	run_chunks(t_ps *ps, t_chunk *c)
+{
+	while (c->pushed < c->n)
 	{
-		if (ps->a->top->index <= limit)
+		if (ps->a->top->index <= c->limit)
 		{
 			do_op(ps, OP_PB);
-			pushed++;
-			if (ps->b->top && ps->b->top->index < limit - (chunk_size / 2))
+			c->pushed++;
+			if (ps->b->top && ps->b->top->index < c->limit - (c->chunk_size / 2))
 				do_op(ps, OP_RB);
-			if (pushed > limit)
-				limit += chunk_size;
-			if (limit >= n)
-				limit = n - 1;
+			if (c->pushed > c->limit)
+				c->limit += c->chunk_size;
+			if (c->limit >= c->n)
+				c->limit = c->n - 1;
 		}
 		else
 			do_op(ps, OP_RA);
@@ -59,8 +69,11 @@ static void	rebuild_a(t_ps *ps)
 
 void	medium_sort(t_ps *ps)
 {
+	t_chunk	c;
+
 	if (!ps || !ps->a || ps->a->size < 2)
 		return ;
-	push_chunks(ps);
+	c = init_chunks(ps);
+	run_chunks(ps, &c);
 	rebuild_a(ps);
 }
