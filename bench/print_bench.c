@@ -1,25 +1,5 @@
 #include "push_swap.h"
 
-static void	put_percent_fd(double x, int fd)
-{
-	int	whole;
-	int	frac;
-
-	if (x < 0)
-		x = 0;
-	whole = (int)x;
-	frac = (int)((x - whole) * 100 + 0.5);
-	if (frac == 100)
-	{
-		whole++;
-		frac = 0;
-	}
-	putnbr_fd(whole, fd);
-	write(fd, ".", 1);
-	put2_fd(frac, fd);
-	write(fd, "%", 1);
-}
-
 static const char	*get_strategy_name(t_ps *ps)
 {
 	if (ps->strategy == STRAT_ADAPTIVE)
@@ -33,21 +13,6 @@ static const char	*get_strategy_name(t_ps *ps)
 	if (ps->used_strategy == USED_COMPLEX)
 		return ("Complex");
 	return ("Unknown");
-}
-
-static const char	*get_complexity(t_ps *ps)
-{
-	if (ps->strategy == STRAT_ADAPTIVE)
-		return ("O(n√n)");
-	if (ps->used_strategy == USED_SMALL)
-		return ("O(1)");
-	if (ps->used_strategy == USED_SIMPLE)
-		return ("O(n^2)");
-	if (ps->used_strategy == USED_MEDIUM)
-		return ("O(n√n)");
-	if (ps->used_strategy == USED_COMPLEX)
-		return ("O(n log n)");
-	return ("unknown");
 }
 
 static void	print_bench_header(t_ps *ps)
@@ -69,13 +34,13 @@ static void	print_bench_ops1(t_ps *ps)
 {
 	putstr_fd("[bench] sa: ", 2);
 	putnbr_fd(ps->op_count[OP_SA], 2);
-	putstr_fd("  sb: ", 2);
+	putstr_fd(" sb: ", 2);
 	putnbr_fd(ps->op_count[OP_SB], 2);
-	putstr_fd("  ss: ", 2);
+	putstr_fd(" ss: ", 2);
 	putnbr_fd(ps->op_count[OP_SS], 2);
-	putstr_fd("  pa: ", 2);
+	putstr_fd(" pa: ", 2);
 	putnbr_fd(ps->op_count[OP_PA], 2);
-	putstr_fd("  pb: ", 2);
+	putstr_fd(" pb: ", 2);
 	putnbr_fd(ps->op_count[OP_PB], 2);
 	putstr_fd("\n", 2);
 }
@@ -84,15 +49,15 @@ static void	print_bench_ops2(t_ps *ps)
 {
 	putstr_fd("[bench] ra: ", 2);
 	putnbr_fd(ps->op_count[OP_RA], 2);
-	putstr_fd("  rb: ", 2);
+	putstr_fd(" rb: ", 2);
 	putnbr_fd(ps->op_count[OP_RB], 2);
-	putstr_fd("  rr: ", 2);
+	putstr_fd(" rr: ", 2);
 	putnbr_fd(ps->op_count[OP_RR], 2);
-	putstr_fd("  rra: ", 2);
+	putstr_fd(" rra: ", 2);
 	putnbr_fd(ps->op_count[OP_RRA], 2);
-	putstr_fd("  rrb: ", 2);
+	putstr_fd(" rrb: ", 2);
 	putnbr_fd(ps->op_count[OP_RRB], 2);
-	putstr_fd("  rrr: ", 2);
+	putstr_fd(" rrr: ", 2);
 	putnbr_fd(ps->op_count[OP_RRR], 2);
 	putstr_fd("\n", 2);
 }
