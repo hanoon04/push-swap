@@ -5,7 +5,7 @@ void	init_stack(t_ps *ps)
 	int	i;
 
 	if (!ps)
-		return;
+		return ;
 	ps->a = malloc(sizeof(t_stack));
 	ps->b = malloc(sizeof(t_stack));
 	if (!ps->a || !ps->b)
@@ -17,6 +17,7 @@ void	init_stack(t_ps *ps)
 	ps->strategy = STRAT_ADAPTIVE;
 	ps->flag_bench = 0;
 	ps->disorder = 0.0;
+	ps->used_strategy = USED_NONE;
 	ps->op_total = 0;
 	i = 0;
 	while (i < 11)

@@ -1,14 +1,5 @@
 #include "../includes/push_swap.h"
 
-typedef struct s_chunk
-{
-	int	n;
-	int	chunk_count;
-	int	chunk_size;
-	int	limit;
-	int	pushed;
-}	t_chunk;
-
 static int	int_sqrt(int n)
 {
 	int	x;

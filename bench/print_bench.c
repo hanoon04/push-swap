@@ -1,37 +1,107 @@
-#include "../includes/push_swap.h"
+#include "push_swap.h"
 
-static void	putstr_fd(const char *s, int fd)
+static void	put_percent_fd(double x, int fd)
 {
-	while (*s) write(fd, s++, 1);
+	int	whole;
+	int	frac;
+
+	if (x < 0)
+		x = 0;
+	whole = (int)x;
+	frac = (int)((x - whole) * 100 + 0.5);
+	if (frac == 100)
+	{
+		whole++;
+		frac = 0;
+	}
+	putnbr_fd(whole, fd);
+	write(fd, ".", 1);
+	put2_fd(frac, fd);
+	write(fd, "%", 1);
 }
 
-static void	putnbr_fd(long n, int fd)
+static const char	*get_strategy_name(t_ps *ps)
 {
-	char c;
-	if (n < 0) { write(fd, "-", 1); n = -n; }
-	if (n >= 10) putnbr_fd(n / 10, fd);
-	c = '0' + (n % 10);
-	write(fd, &c, 1);
+	if (ps->strategy == STRAT_ADAPTIVE)
+		return ("Adaptive");
+	if (ps->used_strategy == USED_SMALL)
+		return ("Small");
+	if (ps->used_strategy == USED_SIMPLE)
+		return ("Simple");
+	if (ps->used_strategy == USED_MEDIUM)
+		return ("Medium");
+	if (ps->used_strategy == USED_COMPLEX)
+		return ("Complex");
+	return ("Unknown");
+}
+
+static const char	*get_complexity(t_ps *ps)
+{
+	if (ps->strategy == STRAT_ADAPTIVE)
+		return ("O(n√n)");
+	if (ps->used_strategy == USED_SMALL)
+		return ("O(1)");
+	if (ps->used_strategy == USED_SIMPLE)
+		return ("O(n^2)");
+	if (ps->used_strategy == USED_MEDIUM)
+		return ("O(n√n)");
+	if (ps->used_strategy == USED_COMPLEX)
+		return ("O(n log n)");
+	return ("unknown");
+}
+
+static void	print_bench_header(t_ps *ps)
+{
+	putstr_fd("[bench] disorder: ", 2);
+	put_percent_fd(ps->disorder * 100.0, 2);
+	putstr_fd("\n", 2);
+	putstr_fd("[bench] strategy: ", 2);
+	putstr_fd(get_strategy_name(ps), 2);
+	putstr_fd(" / ", 2);
+	putstr_fd(get_complexity(ps), 2);
+	putstr_fd("\n", 2);
+	putstr_fd("[bench] total_ops: ", 2);
+	putnbr_fd(ps->op_total, 2);
+	putstr_fd("\n", 2);
+}
+
+static void	print_bench_ops1(t_ps *ps)
+{
+	putstr_fd("[bench] sa: ", 2);
+	putnbr_fd(ps->op_count[OP_SA], 2);
+	putstr_fd("  sb: ", 2);
+	putnbr_fd(ps->op_count[OP_SB], 2);
+	putstr_fd("  ss: ", 2);
+	putnbr_fd(ps->op_count[OP_SS], 2);
+	putstr_fd("  pa: ", 2);
+	putnbr_fd(ps->op_count[OP_PA], 2);
+	putstr_fd("  pb: ", 2);
+	putnbr_fd(ps->op_count[OP_PB], 2);
+	putstr_fd("\n", 2);
+}
+
+static void	print_bench_ops2(t_ps *ps)
+{
+	putstr_fd("[bench] ra: ", 2);
+	putnbr_fd(ps->op_count[OP_RA], 2);
+	putstr_fd("  rb: ", 2);
+	putnbr_fd(ps->op_count[OP_RB], 2);
+	putstr_fd("  rr: ", 2);
+	putnbr_fd(ps->op_count[OP_RR], 2);
+	putstr_fd("  rra: ", 2);
+	putnbr_fd(ps->op_count[OP_RRA], 2);
+	putstr_fd("  rrb: ", 2);
+	putnbr_fd(ps->op_count[OP_RRB], 2);
+	putstr_fd("  rrr: ", 2);
+	putnbr_fd(ps->op_count[OP_RRR], 2);
+	putstr_fd("\n", 2);
 }
 
 void	print_bench(t_ps *ps)
 {
-	int	i;
-
-	if (!ps) return;
-
-	putstr_fd("Total ops: ", 2);
-	putnbr_fd(ps->op_total, 2);
-	putstr_fd("\n", 2);
-
-	i = 0;
-	while (i < 11)
-	{
-		putstr_fd("op[", 2);
-		putnbr_fd(i, 2);
-		putstr_fd("]: ", 2);
-		putnbr_fd(ps->op_count[i], 2);
-		putstr_fd("\n", 2);
-		i++;
-	}
+	if (!ps)
+		return ;
+	print_bench_header(ps);
+	print_bench_ops1(ps);
+	print_bench_ops2(ps);
 }
