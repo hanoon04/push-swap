@@ -67,6 +67,3 @@ When `--bench` is used, the program prints:
 
 ## Note About Sources
 This project also used a small amount of AI as a supporting source for explanations, organization, and review while developing and documenting the work.
-
-## Author
-42 student project.
