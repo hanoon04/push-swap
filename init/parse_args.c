@@ -65,26 +65,24 @@ static void	free_split(char **arr)
 	free(arr);
 }
 
-static void	handle_token(t_ps *ps, const char *tok)
+static int	handle_token(t_ps *ps, const char *tok)
 {
 	long	nb;
 	t_node	*n;
 
 	if (!is_valid_int_token(tok))
-		error_exit(ps);
-
+		return (0);
 	nb = ft_atol(tok);
 	if (nb < INT_MIN || nb > INT_MAX)
-		error_exit(ps);
-
+		return (0);
 	if (stack_contains(ps->a->top, (int)nb))
-		error_exit(ps);
-
+		return (0);
 	n = node_new((int)nb);
 	if (!n)
-		error_exit(ps);
+		return (0);	
 	node_add_back(&ps->a->top, n);
 	ps->a->size++;
+	return (1);
 }
 
 void	parse_input(t_ps *ps, int argc, char **argv, int start_i)
@@ -108,11 +106,23 @@ void	parse_input(t_ps *ps, int argc, char **argv, int start_i)
 		}
 		i = 0;
 		while (tokens[i])
-			handle_token(ps, tokens[i++]);
+		{
+			if (!handle_token(ps, tokens[i]))
+			{
+				free_split(tokens);
+				error_exit(ps);
+		
+			}
+			i ++;
+		}
 		free_split(tokens);
 		return ;
 	}
 	i = start_i;
 	while (i < argc)
-		handle_token(ps, argv[i++]);
+	{
+		if (!handle_token(ps, argv[i]))
+			error_exit(ps);
+		i ++;
+	}
 }
