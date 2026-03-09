@@ -1,27 +1,5 @@
 #include "../includes/push_swap.h"
 
-static int	is_space(char c)
-{
-	return (c == ' ' || c == '\t' || c == '\n'
-		|| c == '\v' || c == '\f' || c == '\r');
-}
-
-static int	is_all_spaces(const char *s)
-{
-	int	i;
-
-	if (!s)
-		return (1);
-	i = 0;
-	while (s[i])
-	{
-		if (!is_space(s[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 static int	is_valid_int_token(const char *s)
 {
 	int	i;
@@ -53,18 +31,6 @@ static int	stack_contains(t_node *a, int value)
 	return (0);
 }
 
-static void	free_split(char **arr)
-{
-	int	i;
-
-	if (!arr)
-		return ;
-	i = 0;
-	while (arr[i])
-		free(arr[i++]);
-	free(arr);
-}
-
 static int	handle_token(t_ps *ps, const char *tok)
 {
 	long	nb;
@@ -79,43 +45,47 @@ static int	handle_token(t_ps *ps, const char *tok)
 		return (0);
 	n = node_new((int)nb);
 	if (!n)
-		return (0);	
+		return (0);
 	node_add_back(&ps->a->top, n);
 	ps->a->size++;
 	return (1);
 }
 
-void	parse_input(t_ps *ps, int argc, char **argv, int start_i)
+static void	parse_split_input(t_ps *ps, char *arg)
 {
 	char	**tokens;
 	int		i;
 
-	if (!ps || start_i >= argc)
+	if (arg[0] == '\0' || is_all_spaces(arg))
 		error_exit(ps);
-
-	if (argc - start_i == 1)
+	tokens = ft_split(arg, ' ');
+	if (!tokens || !tokens[0])
 	{
-		if (argv[start_i][0] == '\0' || is_all_spaces(argv[start_i]))
-			error_exit(ps);
-
-		tokens = ft_split(argv[start_i], ' ');
-		if (!tokens || !tokens[0])
+		free_split(tokens);
+		error_exit(ps);
+	}
+	i = 0;
+	while (tokens[i])
+	{
+		if (!handle_token(ps, tokens[i]))
 		{
 			free_split(tokens);
 			error_exit(ps);
 		}
-		i = 0;
-		while (tokens[i])
-		{
-			if (!handle_token(ps, tokens[i]))
-			{
-				free_split(tokens);
-				error_exit(ps);
-		
-			}
-			i ++;
-		}
-		free_split(tokens);
+		i++;
+	}
+	free_split(tokens);
+}
+
+void	parse_input(t_ps *ps, int argc, char **argv, int start_i)
+{
+	int	i;
+
+	if (!ps || start_i >= argc)
+		error_exit(ps);
+	if (argc - start_i == 1)
+	{
+		parse_split_input(ps, argv[start_i]);
 		return ;
 	}
 	i = start_i;
@@ -123,6 +93,6 @@ void	parse_input(t_ps *ps, int argc, char **argv, int start_i)
 	{
 		if (!handle_token(ps, argv[i]))
 			error_exit(ps);
-		i ++;
+		i++;
 	}
 }
